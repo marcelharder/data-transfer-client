@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  sqlUrl: 'http://77.153.53.32:5000/api/',
   apiUrl: 'http://localhost:5000/api/'
 };
 

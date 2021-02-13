@@ -17,16 +17,15 @@ namespace api.DAL.code
         private IHospitalRepository _hos;
         private IHttpContextAccessor _http;
         private IMapper _map;
-        private Dropdownlists _drops;
+       
         public SpecialMaps(
         IHttpContextAccessor http, 
         IHospitalRepository hos, 
-        IMapper map, 
-        Dropdownlists drops)
+        IMapper map)
         {
             _http = http;
             _map = map;
-            _drops = drops;
+          
             _hos = hos;
         }
         public  User mapToUserAsync(UserForUpdateDto help, User h)
@@ -63,7 +62,7 @@ namespace api.DAL.code
                 d.center_id = c.center_id;
                 d.cassette_id = c.cassette_id;
                 d.contributor_id = c.contributor_id;
-                d.indication = getIndication(c.indication);
+               
                 d.patient_age = c.patient_age;
                 d.patient_gender = c.patient_gender;
                 d.registry_id = c.registry_id;
@@ -94,14 +93,7 @@ namespace api.DAL.code
             var userId = _http.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return Convert.ToInt32(userId);
         }
-        private string getIndication(int indication)
-        {
-            var help = "";
-            var ret = new List<Class_Item>();
-            ret = _drops.getReasonForUse();
-            help = ret.Find(x => x.value == indication).description;
-            return help;
-        }
+      
         private async Task<string> getNameOfHospitalAsync(string center_id){
             
              if(String.IsNullOrEmpty(center_id)){return "Choose";}

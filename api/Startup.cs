@@ -1,7 +1,6 @@
 using System.Text;
 using api.DAL;
 using api.DAL.code;
-using api.DAL.data;
 using api.DAL.Implementations;
 using api.DAL.Interfaces;
 using AutoMapper;
@@ -36,8 +35,7 @@ namespace api
             services.TryAddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, HttpContextAccessor>(); 
 
             // services.AddDbContext<dataContext>(x => x.UseMySql(Configuration.GetConnectionString("SQLconnection")));
-
-           
+          
 
             var _connectionString = Configuration.GetConnectionString("SQLConnection");
             services.AddDbContext<dataContext>(
@@ -51,10 +49,8 @@ namespace api
             services.AddScoped<IUser, UserRepository>();
             services.AddScoped<ICardioRepository, CardioRepository>();
             services.AddScoped<IHospitalRepository, HospitalRepository>();
-            services.AddScoped<Dropdownlists>();
             services.AddScoped<SpecialMaps>();
-            services.AddScoped<CSVProducer>();
-
+            
             services.AddAutoMapper(System.Reflection.Assembly.GetExecutingAssembly());
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -100,13 +96,13 @@ namespace api
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseDefaultFiles();
-            //app.UseStaticFiles();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapFallbackToController("Index","Fallback");
+                endpoints.MapFallbackToController("Index","Fallback");
             });
         }
     }

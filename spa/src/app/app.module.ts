@@ -6,11 +6,7 @@ import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { SettingsComponent } from './settings/settings.component';
-import { StatisticsComponent } from './statistics/statistics.component';
-import { RegisterComponent } from './register/register.component';
 import { AlertifyService } from './_services/alertify.service';
 import { AuthService } from './_services/auth.service';
 
@@ -27,11 +23,7 @@ export function tokenGetter() { return localStorage.getItem('token'); }
    declarations: [
       AppComponent,
       HomeComponent,
-      AboutComponent,
       NavMenuComponent,
-      SettingsComponent,
-      StatisticsComponent,
-      RegisterComponent,
       LoginComponent
    ],
    imports: [

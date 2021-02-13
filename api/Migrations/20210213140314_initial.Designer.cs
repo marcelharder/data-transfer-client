@@ -9,7 +9,7 @@ using api.DAL;
 namespace api.Migrations
 {
     [DbContext(typeof(dataContext))]
-    [Migration("20210108134947_initial")]
+    [Migration("20210213140314_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
