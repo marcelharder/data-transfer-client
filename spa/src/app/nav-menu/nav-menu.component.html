@@ -6,16 +6,16 @@
           <li class="nav-item">
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"  *ngIf="loggedIn()">
             <a class="nav-link text-dark" [routerLink]="['/soa']">SOA</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"  *ngIf="loggedIn()">
             <a class="nav-link text-dark" [routerLink]="['/waitlist']">Waitlist </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"  *ngIf="loggedIn()">
             <a class="nav-link text-dark" [routerLink]="['/cardiohelp']">CardioHelp</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"  *ngIf="loggedIn()">
             <a class="nav-link text-dark" [routerLink]="['/ovi']">OVI </a>
           </li>
           <li class="nav-item" *ngIf="!loggedIn()">

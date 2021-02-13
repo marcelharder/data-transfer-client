@@ -14,6 +14,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './_guards/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { SoaComponent } from './Soa/Soa.component';
+import { WaitlistComponent } from './Waitlist/Waitlist.component';
+import { OviComponent } from './Ovi/Ovi.component';
+import { CardioHelpComponent } from './CardioHelp/CardioHelp.component';
 
 
 
@@ -24,7 +28,11 @@ export function tokenGetter() { return localStorage.getItem('token'); }
       AppComponent,
       HomeComponent,
       NavMenuComponent,
-      LoginComponent
+      LoginComponent,
+      SoaComponent,
+      WaitlistComponent,
+      OviComponent,
+      CardioHelpComponent
    ],
    imports: [
       HttpClientModule,
