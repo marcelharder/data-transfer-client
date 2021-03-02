@@ -1,6 +1,5 @@
 using System.Text;
 using api.DAL;
-using api.DAL.code;
 using api.DAL.Implementations;
 using api.DAL.Interfaces;
 using AutoMapper;
@@ -37,7 +36,7 @@ namespace api
             // services.AddDbContext<dataContext>(x => x.UseMySql(Configuration.GetConnectionString("SQLconnection")));
 
                var _connectionString = Configuration.GetConnectionString("SQLConnection");
-                services.AddDbContext<dataSOAContext>(
+                services.AddDbContext<dataContext>(
                     options => options.UseMySql(
                         _connectionString,
                         ServerVersion.AutoDetect(_connectionString)
@@ -46,10 +45,9 @@ namespace api
             
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUser, UserRepository>();
-            services.AddScoped<ICardioRepository, CardioRepository>();
             services.AddScoped<IHospitalRepository, HospitalRepository>();
-            services.AddScoped<SpecialMaps>();
-
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+          
             services.AddAutoMapper(System.Reflection.Assembly.GetExecutingAssembly());
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

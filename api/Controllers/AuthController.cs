@@ -8,9 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using api.DAL.dtos;
 using api.DAL.Interfaces;
-using api.DAL.data;
+using api.DAL.models;
 
-namespace OnlineValveApplication_02.Controllers
+namespace api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -28,7 +28,7 @@ namespace OnlineValveApplication_02.Controllers
         {
             ufr.username = ufr.username.ToLower();
             if (await _repo.UserExists(ufr.username)) { return BadRequest("User already exists ..."); }
-            User test = new User { username = ufr.username };
+            User test = new User { Username = ufr.username };
             var createdUser = await _repo.Register(test, ufr.password);
             return StatusCode(201);
         }
@@ -39,9 +39,9 @@ namespace OnlineValveApplication_02.Controllers
             if (userFromRepo == null) { return BadRequest("Unauthorized"); }
             // generate a token
             var claims = new[] {
-        new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-        new Claim(ClaimTypes.Name, userFromRepo.username),
-        new Claim(ClaimTypes.Role, userFromRepo.user_role)
+        new Claim(ClaimTypes.NameIdentifier, userFromRepo.UserId.ToString()),
+        new Claim(ClaimTypes.Name, userFromRepo.Username),
+        new Claim(ClaimTypes.Role, userFromRepo.Role)
         };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

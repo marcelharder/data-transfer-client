@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.DAL;
-using api.DAL.data;
-using api.DAL.helpers;
+using api.DAL.models;
 using Cardiohelp.data.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cardiohelp.data.Implementations{
@@ -15,27 +15,9 @@ namespace Cardiohelp.data.Implementations{
         {
             _context = context;
         }
-        public async Task<hospital> getHospitalDetails(int id)
-        {
-            var selectedHospital = await _context.Hospitals.FirstOrDefaultAsync(x => x.center_id == id); 
-            return selectedHospital;
-        }
+       
     
-        public async Task<PagedList<hospital>> getHospitalsCountry(HospitalParams p)
-        {
-            var hospitals = _context.Hospitals.AsQueryable();
-            hospitals = hospitals.Where(m => m.country == p.country);
-            return await PagedList<hospital>.CreateAsync(hospitals, p.PageNumber, p.PageSize);
-        }
-
-        public async Task<PagedList<hospital>> getHospitals(HospitalParams p)
-        {
-            var hospitals = _context.Hospitals.AsQueryable();
-            //hospitals = hospitals.Where(m => m.country == p.country);
-            return await PagedList<hospital>.CreateAsync(hospitals, p.PageNumber, p.PageSize);
-        }
-
-         public void Update<T>(T entity) where T : class
+        public void Update<T>(T entity) where T : class
         {
             _context.Update(entity);
 
@@ -53,6 +35,13 @@ namespace Cardiohelp.data.Implementations{
             return await _context.SaveChangesAsync() > 0;
         }
 
-        
+        public async Task<string> findHospital(List<Class_Hospital> hosList)
+        {
+            foreach(Class_Hospital hos in hosList){
+            if(await _context.Hospitals
+            .Where(x => x.HospitalNo == hos.HospitalNo)
+            .AnyAsync()){ Update(hos);}else{Add(hos);}}
+            return "Ok";
+        }
     }
 }

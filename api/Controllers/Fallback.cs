@@ -1,7 +1,7 @@
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cardiohelp.Controllers {
+namespace api.Controllers {
 
 public class Fallback: Controller {
 

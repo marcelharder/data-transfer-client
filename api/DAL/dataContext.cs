@@ -1,4 +1,5 @@
-using api.DAL.data;
+
+using api.DAL.models;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.DAL
@@ -8,8 +9,9 @@ namespace api.DAL
     {
         public dataContext(DbContextOptions<dataContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
-        public DbSet<hospital> Hospitals { get; set; }
-        public DbSet<Cardio> Cardios { get; set; }
+        public DbSet<Class_Hospital> Hospitals { get; set; }
+        public DbSet<Class_Employee> Employees { get; set; }
+        
          
        
     }

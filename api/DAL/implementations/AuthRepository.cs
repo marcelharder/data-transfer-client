@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using api.DAL.Interfaces;
 using System;
 using System.Threading.Tasks;
-using api.DAL.data;
+using api.DAL.models;
 
 namespace api.DAL.Implementations
 {
@@ -16,7 +16,7 @@ namespace api.DAL.Implementations
         }
         public async Task<User> Login(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.username == username);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
             if (user == null) return null;
             if (!VerifyPassWordHash(password, user.PasswordHash, user.PasswordSalt)) return null;
             return user;
@@ -35,21 +35,21 @@ namespace api.DAL.Implementations
             return true;
         }
 
-        public async Task<User> Register(User user, string password)
+         public async Task<User> Register(User user, string password)
         {
             DateTime now = DateTime.UtcNow;
             byte[] passwordHash, passwordSalt;
             CreatePassWordHash(password, out passwordHash, out passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            user.user_role = "normal";
-            user.photoUrl = "https://res.cloudinary.com/marcelcloud/image/upload/v1559818775/user.png.jpg";
-            user.created = now;
+            user.Role = "normal";
+            user.PhotoUrl = "https://res.cloudinary.com/marcelcloud/image/upload/v1559818775/user.png.jpg";
+            user.Created = now;
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;
-        }
+        } 
 
         private void CreatePassWordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -62,9 +62,13 @@ namespace api.DAL.Implementations
 
         public async Task<bool> UserExists(string username)
         {
-            if (await _context.Users.AnyAsync(x => x.username == username)) return true;
+            if (await _context.Users.AnyAsync(x => x.Username == username)) return true;
             return false;
         }
+
+        
+
+       
     }
 
 }
