@@ -32,25 +32,24 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.TryAddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, HttpContextAccessor>(); 
+            services.TryAddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, HttpContextAccessor>();
 
             // services.AddDbContext<dataContext>(x => x.UseMySql(Configuration.GetConnectionString("SQLconnection")));
-          
 
-            var _connectionString = Configuration.GetConnectionString("SQLConnection");
-            services.AddDbContext<dataContext>(
-                options => options.UseMySql(
-                    _connectionString,
-                    ServerVersion.AutoDetect(_connectionString)
-                )
-            );
-
+               var _connectionString = Configuration.GetConnectionString("SQLConnection");
+                services.AddDbContext<dataSOAContext>(
+                    options => options.UseMySql(
+                        _connectionString,
+                        ServerVersion.AutoDetect(_connectionString)
+                    )
+                );
+            
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUser, UserRepository>();
             services.AddScoped<ICardioRepository, CardioRepository>();
             services.AddScoped<IHospitalRepository, HospitalRepository>();
             services.AddScoped<SpecialMaps>();
-            
+
             services.AddAutoMapper(System.Reflection.Assembly.GetExecutingAssembly());
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -102,7 +101,7 @@ namespace api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapFallbackToController("Index","Fallback");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
