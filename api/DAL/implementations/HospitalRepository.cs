@@ -40,7 +40,9 @@ namespace Cardiohelp.data.Implementations{
             foreach(Class_Hospital hos in hosList){
             if(await _context.Hospitals
             .Where(x => x.HospitalNo == hos.HospitalNo)
-            .AnyAsync()){ Update(hos);}else{Add(hos);}}
+            .AnyAsync()){ Update(hos);
+                    await SaveAll();}else{Add(hos);
+                    await SaveAll();}}
             return "Ok";
         }
     }

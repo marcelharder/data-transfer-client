@@ -8,15 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cardiohelp.data.Implementations
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class CabgRepository : ICabgRepository
     {
+
         private dataContext _context;
-        public EmployeeRepository(dataContext context)
+        public CabgRepository(dataContext context)
         {
             _context = context;
         }
-
-
         public void Update<T>(T entity) where T : class
         {
             _context.Update(entity);
@@ -34,12 +33,12 @@ namespace Cardiohelp.data.Implementations
         {
             return await _context.SaveChangesAsync() > 0;
         }
-
-        public async Task<string> findEmployee(List<Class_Employee> empList)
+        
+         public async Task<string> findCABG(List<Class_CABG> cabgList)
         {
-            foreach (Class_Employee emp in empList)
+            foreach (Class_CABG emp in cabgList)
             {
-                if (await _context.Employees
+                if (await _context.Cabgs
                 .Where(x => x.Id == emp.Id)
                 .AnyAsync())
                 {
@@ -54,5 +53,7 @@ namespace Cardiohelp.data.Implementations
             }
             return "Ok";
         }
+
+       
     }
 }

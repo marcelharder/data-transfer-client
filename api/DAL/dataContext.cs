@@ -11,6 +11,7 @@ namespace api.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Class_Hospital> Hospitals { get; set; }
         public DbSet<Class_Employee> Employees { get; set; }
+         public DbSet<Class_CABG> Cabgs { get; set; }
         
          
        

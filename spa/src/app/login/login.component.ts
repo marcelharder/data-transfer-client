@@ -10,6 +10,7 @@ import { Route, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
     model: any = {};
+    showRB = 0;
     adminLogged: boolean;
     normalLogged: boolean;
     specialLogged: boolean;
@@ -23,13 +24,12 @@ export class LoginComponent implements OnInit {
 
     constructor(private auth: AuthService, private alertify: AlertifyService, private router: Router) { }
 
-    ngOnInit(): void {
-
-    }
+    ngOnInit(): void { }
     login() {
         this.auth.login(this.model).subscribe(next => {
             this.alertify.success('Logged in successfully');
             this.loginFailed = false;
+            this.showRB = 0;
 
             this.auth.changeCurrentRole(this.auth.decodedToken.role);
 
@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
         },
             error => {
                 // say log in failed, show register button
-                this.alertify.error(error);
+                this.showRB = 1;
+                this.alertify.error("Login failed ...");
                 this.loginFailed = true;
             }
         );
@@ -77,5 +78,8 @@ export class LoginComponent implements OnInit {
     }
 
     isLoggedIn() { return !this.loginFailed }
+
+    showRegisterButton(){if(this.showRB !== 0)return true;}
+    register(){this.auth.register(this.model).subscribe(next => {});}
 
 }

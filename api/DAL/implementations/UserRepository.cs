@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.DAL;
-using api.DAL.helpers;
 using api.DAL.models;
 using Cardiohelp.data.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -34,8 +33,10 @@ namespace Cardiohelp.data.Implementations
             {
                 if (await _context.Users
                            .Where(x => x.UserId == us.UserId)
-                           .AnyAsync()) { Update(us); }
-                else { Add(us); }
+                           .AnyAsync()) { Update(us);
+                    await SaveAll(); }
+                else { Add(us);
+                    await SaveAll(); }
             }
 
             return "Ok";

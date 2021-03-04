@@ -4,7 +4,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../_models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +46,6 @@ register(model: any) { return this.http.post(this.baseUrl + 'auth/register', mod
 
 updatePassword(model: any) { return this.http.put(this.baseUrl + 'auth/changePassword', model); }
 
-loggedIn() {
-    const token = localStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token);
-}
+loggedIn() {const token = localStorage.getItem('token');return !this.jwtHelper.isTokenExpired(token);}
 
 }
